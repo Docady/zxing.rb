@@ -6,8 +6,8 @@ module ZXing
     Decoder = Client.new
   else
     require 'java'
-    require 'zxing/core-3.1.1-SNAPSHOT.jar'
-    require 'zxing/javase-3.1.1-SNAPSHOT.jar'
+    require 'zxing/core-3.2.1'
+    require 'zxing/javase-3.2.1'
 
     java_import com.google.zxing.MultiFormatReader
     java_import com.google.zxing.BinaryBitmap
@@ -63,7 +63,10 @@ module ZXing
         multi_barcode_reader = GenericMultipleBarcodeReader.new(reader)
 
         multi_barcode_reader.decode_multiple(bitmap).map do |result|
-          result.get_text
+          {
+              text:      result.get_text,
+              symbology: result.getBarcodeFormat.to_s.upcase,
+          }
         end
       end
 

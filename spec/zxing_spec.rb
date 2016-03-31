@@ -80,12 +80,12 @@ describe ZXing do
 
     context "with a single barcoded image" do
       let(:file) { fixture_image("example") }
-      it { should == ["example"] }
+      it { should == [{ data: "example", symbology: "QR_CODE"}] }
     end
 
     context "with a multiple barcoded image" do
       let(:file) {fixture_image("multi_barcode_example") }
-      it { should == ['test456','test123']}
+      it { should == [{ data: "test456", symbology: "QR_CODE"}, { data: "test123", symbology: "QR_CODE"}]}
     end
 
     context "when the image cannot be decoded" do
@@ -107,12 +107,12 @@ describe ZXing do
 
     context "with a single barcoded image" do
       let(:file) { fixture_image("example") }
-      it { should == ["example"] }
+      it { should == [{ data: "example", symbology: "QR_CODE"}] }
     end
 
     context "with a multiple barcoded image" do
       let(:file) {fixture_image("multi_barcode_example") }
-      it { should == ['test456','test123']}
+      it { should == [{ data: "test456", symbology: "QR_CODE"}, { data: "test123", symbology: "QR_CODE"}]}
     end
 
     context "when the image cannot be decoded" do

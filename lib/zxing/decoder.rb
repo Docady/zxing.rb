@@ -64,7 +64,7 @@ module ZXing
 
         multi_barcode_reader.decode_multiple(bitmap).map do |result|
           {
-              text:      result.get_text,
+              data:      result.get_text,
               symbology: result.getBarcodeFormat.to_s.upcase,
           }
         end

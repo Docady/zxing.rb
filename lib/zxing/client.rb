@@ -1,5 +1,4 @@
 require 'socket'
-require 'open3'
 require 'drb'
 
 module ZXing
@@ -15,11 +14,9 @@ module ZXing
     private
 
     def self.setup_drb_server(port)
-      stdin, stdout, stderr, wait_thr = Open3.popen3("#{ZXing::BIN} #{port}")
-      remote_client_pid = wait_thr.pid
-
+      remote_client = IO.popen("#{ZXing::BIN} #{port}")
       sleep 0.5 until responsive?(port)
-      at_exit { Process.kill(:INT, remote_client_pid) }
+      at_exit { Process.kill(:INT, remote_client.pid) }
     end
 
     def self.responsive?(port)
